@@ -1,8 +1,6 @@
 const IMAGE_WIDTH = 800;
 
 const validUrl = require('valid-url');
-const Canvas = require('canvas');
-const assert = require('assert').strict;
 const fetch = require('node-fetch');
 const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js');
 const { NodeCanvasFactory } = require('./NodeCanvasFactory');
@@ -68,7 +66,7 @@ async function generatePng(pdfPath) {
     const scale = IMAGE_WIDTH / pageWidth;
     const viewport = page.getViewport({ scale });
     const canvasFactory = new NodeCanvasFactory();
-    const canvasAndContext = canvasFactory.create(width, Math.floor(pageHeight * scale));
+    const canvasAndContext = canvasFactory.create(IMAGE_WIDTH, Math.floor(pageHeight * scale));
     const renderContext = {
       canvasContext: canvasAndContext.context,
       viewport,
@@ -76,8 +74,10 @@ async function generatePng(pdfPath) {
     };
 
     await page.render(renderContext).promise;
+    console.log(canvasAndContext.canvas.toBuffer().toString('base64'))
     return { ok: true, message: canvasAndContext.canvas.toBuffer().toString('base64') };
   } catch (e) {
+    console.log(e)
     return { ok: false, message: e };
   }
 }
