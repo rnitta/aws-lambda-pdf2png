@@ -14,7 +14,7 @@ $ docker run -v "$PWD":/var/task -it lambci/lambda:build-nodejs12.x bash
 ```
 
 ```bash
-$ cp /usr/lib64/{libmount.so.1,libuuid.so.1,libblkid.so.1} lib/
+$ cp /usr/lib64/{libmount.so.1,libuuid.so.1,libblkid.so.1,libz.so.1} lib/
 $ npm i
 ```
 

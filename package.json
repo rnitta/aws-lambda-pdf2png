@@ -4,7 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "assert": "^2.0.0",
-    "canvas": "^2.9.0",
+    "canvas": "2.6.1",
     "node-fetch": "^2.6.7",
     "pdfjs-dist": "^2.12.313",
     "valid-url": "^1.0.9"

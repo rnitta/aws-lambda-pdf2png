@@ -2,7 +2,7 @@ const IMAGE_WIDTH = 800;
 
 const validUrl = require('valid-url');
 const fetch = require('node-fetch');
-const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js');
+const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.js');
 const { NodeCanvasFactory } = require('./NodeCanvasFactory');
 
 exports.handler = async (event, context) => {
@@ -41,8 +41,8 @@ async function generatePng(pdfPath) {
     throw new Error('PDFを指定してください');
   }
 
-  // const CMAP_URL = '../../../node_modules/pdfjs-dist/cmaps/';
-  const CMAP_URL = 'https://mozilla.github.io/pdf.js/web/cmaps/';
+  const CMAP_URL = './node_modules/pdfjs-dist/cmaps/';
+  // const CMAP_URL = 'https://mozilla.github.io/pdf.js/web/cmaps/';
   const CMAP_PACKED = true;
 
   // fetch PDF binary.
