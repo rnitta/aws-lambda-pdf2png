@@ -41,7 +41,8 @@ async function generatePng(pdfPath) {
     throw new Error('PDFを指定してください');
   }
 
-  const CMAP_URL = '../../../node_modules/pdfjs-dist/cmaps/';
+  // const CMAP_URL = '../../../node_modules/pdfjs-dist/cmaps/';
+  const CMAP_URL = 'https://mozilla.github.io/pdf.js/web/cmaps/';
   const CMAP_PACKED = true;
 
   // fetch PDF binary.
@@ -59,10 +60,13 @@ async function generatePng(pdfPath) {
     const { pageWidth, pageHeight } =
       Math.abs(page.rotate) % 180 === 90
         ? {
-            pageWidth: page.view[3] - page.view[1],
-            pageHeight: page.view[2] - page.view[0],
-          }
-        : { pageWidth: page.view[2] - page.view[0], pageHeight: page.view[3] - page.view[1] };
+          pageWidth: page.view[3] - page.view[1],
+          pageHeight: page.view[2] - page.view[0],
+        }
+        : {
+          pageWidth: page.view[2] - page.view[0],
+          pageHeight: page.view[3] - page.view[1]
+        };
     const scale = IMAGE_WIDTH / pageWidth;
     const viewport = page.getViewport({ scale });
     const canvasFactory = new NodeCanvasFactory();
@@ -74,10 +78,10 @@ async function generatePng(pdfPath) {
     };
 
     await page.render(renderContext).promise;
-    console.log(canvasAndContext.canvas.toBuffer().toString('base64'))
+    console.log(canvasAndContext.canvas.toBuffer().toString('base64'));
     return { ok: true, message: canvasAndContext.canvas.toBuffer().toString('base64') };
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return { ok: false, message: e };
   }
 }
